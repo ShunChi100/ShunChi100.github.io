@@ -199,10 +199,12 @@ where $\lambda = \frac{b}{b_w}$.
 [2]: One can always transform any binary output to be -1 and 1.
 [3]: [Laplace distribution](https://en.wikipedia.org/wiki/Laplace_distribution)
 
-************
-Some further thoughts:
+
+
+--------------------------
+_Some further thoughts:
 * The problem setup, suppose we know $w$.
 * The assumption on the probability distribution is what we believe the world.
 * The choice of MLE or MAP is what we believe how the world works.
 * Laplace distribution: no longer that unbelievable that have a point far away from the line.
-************
+_
