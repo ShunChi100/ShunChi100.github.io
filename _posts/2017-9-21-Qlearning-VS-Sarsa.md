@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Q-learning vs Sarsa
+Category: Data Science
 ---
 
 Q-learning (off-policy) and Sarsa (on-policy) are two basic methods for reinforcement learning. The difference between two is the way they update Q table.
