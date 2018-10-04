@@ -1,3 +1,9 @@
+
+theme: "hyde"
+
+params:
+  layoutReverse: true
+
 # Dependencies
 markdown:         kramdown
 highlighter:      rouge
