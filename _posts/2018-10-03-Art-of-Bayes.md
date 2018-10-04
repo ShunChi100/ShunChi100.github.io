@@ -37,7 +37,7 @@ The problem setup is the following:
 * We make an assumption on the distribution of the response variable.
 * We want to find the parameters $\theta$ that the set of observations are most likely to happen.
 
-In general cases, let $$f(Y | \Theta)$$ be the probability distribution for the response variable. $\Theta$ is the distribution parameter that is a function of independent variables $x_i$ and parameters $W$. For example, for the linear regression case, $\Theta$ is the mean and given by $\Theta = W^TX$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the likelihood function is
+In general cases, let $$f(Y | \\Theta)$$ be the probability distribution for the response variable. $\Theta$ is the distribution parameter that is a function of independent variables $x_i$ and parameters $W$. For example, for the linear regression case, $\Theta$ is the mean and given by $\Theta = W^TX$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the likelihood function is
 
 $$\mathcal{L}(D|\theta) = \prod_{i}f(y_i|\theta_i) = \prod_{i}f(y_i|w,x_i).$$
 
