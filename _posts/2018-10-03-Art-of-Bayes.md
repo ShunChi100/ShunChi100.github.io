@@ -1,5 +1,7 @@
 ---
 layout: post
+mathjax: true
+comments: true
 title: The Bridge between Bayes Statistics and Machine Learning Models
 Category: Data Science
 ---
