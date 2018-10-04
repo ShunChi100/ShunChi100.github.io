@@ -4,8 +4,8 @@ highlighter:      rouge
 
 # Setup
 title:            Shun Chi
-tagline:          'Data Scientist in tranning'
-description:      'Data Scientist in tranning'
+tagline:          'Data Scientist'
+description:      'Data Scientist'
 url:              https://shunchi100.github.io
 baseurl:          # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
@@ -27,7 +27,7 @@ plugins:
   - jekyll-paginate
 
 # Custom vars
-version:            0.0.1
+version:            0.2
 sidebar_home_link:  true
 # sidebar_blog_link:  '/blog'   # By default, your home page is your blog
                                 # page. If you change your paginate_path,
