@@ -12,10 +12,13 @@ Machine learning and statistics are two close subjects. Here in this post, I try
 Maximum likelihood estimation (MLE) is the procedure of finding the values of $\Theta$ for a given data set which make the likelihood function a maximum [1]. Here the likelihood function is simply the probability that the event leading to the given data happens. Taking coin flipping as an example, we have observed three heads and two tails in five trails of the same coin. The number of heads in a given number of trails forms a binomial distribution with probability $p$. Here $p$ is the probability of head in a toss. We are not sure if the coin is fair or not. However, we want to estimate the most likely $p$ for this coin based on our observations. MLE can help here. The procedure is the following:
 
 * Calculate the likelihood as a function distribution parameter $\Theta$. Here $\Theta$ is $p$ in the binomial distribution case
+
 $$\mathcal{L}(p) = (_{5}^{3})p^3(1-p)^2 = 10p^3(1-p)^2$$
 
 * Take the negative logarithm of the likelihood function
+
 $$\displaystyle{\mathrm{argmin}_{p}}-\log(\mathcal{L}(p)).$$
+
 The benefits of using the negative logarithm are
   - avoiding overflow or underflow
   - changing the product of probabilities to the sum of probabilities.
@@ -35,9 +38,12 @@ The problem setup is the following:
 * We want to find the parameters $\theta$ that the set of observations are most likely to happen.
 
 In general cases, let $f(Y|\Theta)$ be the probability distribution for the response variable. $\Theta$ is the distribution parameter that is a function of independent variables $x_i$ and parameters $W$. For example, for the linear regression case, $\Theta$ is the mean and given by $\Theta = W^TX$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the likelihood function is
+
 $$\mathcal{L}(D|\theta) = \prod_{i}f(y_i|\theta_i) = \prod_{i}f(y_i|w,x_i).$$ The negative logarithm of it is
+
 $$-\log(\mathcal{L}(D|w)) = -\sum_{i}\log(f(y_i|w,x_i)).$$
 The MLE objective function is
+
 $$\mathrm{argmin}_{w} -\log(\mathcal{L}(D|w)) = \mathrm{argmin}_{w}-\sum_{i}\log(f(y_i|w,x_i)).$$
 
 ##### Linear regression
@@ -46,23 +52,32 @@ $$Y = WX + \xi,$$
 where the intercept term is included by adding a dummy variable in $X$. $\xi$ follows a Gaussian distribution.
 
 So the response variable follows a Gaussian distribution
+
 $$Y \sim N(\Theta = WX, \sigma) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{(Y-WX)^2}{2\sigma^2}},$$
+
 where $\Theta$ is the mean and $\sigma$ is the standard deviation for the noise $\xi$.
 
 Follow the MLE objective function
+
 $$\mathrm{argmin}_{w} \left[  -\log(\mathcal{L}(D|w))\right] = \mathrm{argmin}_{w}\left[-\sum_{i}\log(N(\theta = w^T x_i, \sigma))\right]$$  
+
 $$ = \mathrm{argmin}_{w}\left[-\sum_{i}\log(\frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}})\right]$$
+
 $$ = \mathrm{argmin}_{w}\left[-\sum_{i}\left[\log\left(\frac{1}{\sqrt{2\pi \sigma^2}}\right)+\log\left(e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}}\right)\right]\right]$$
+
 $$ = const. + \frac{1}{2\sigma^2}\mathrm{argmin}_{w}\sum_{i}(y_i-w^Tx_i)^2$$
 
 So the MLE becomes a problem to find $w$ that minimize the sum of squared errors
+
 $$\sum_{i}(y_i-w^Tx_i)^2$$
 
 So now we can see that the origin of object (loss) function for linear regression is MLE of a Gaussian distributed response variable.
 
 ##### Logistic regression
 In logistic regression, the response variable $Y$ is binary and follows a binomial distribution. Let's set the binary values to be -1 and 1 [2]. The parameter of the model is $p$, the probability for $Y = 1$. $p$ is a function of independent variables $X$ and parameters $W$. One of the most popular choice is the sigmoid function
+
 $$p = h(W^TX) = \frac{1}{1+e^{-W^TX}}$$
+
 Therefore, for an observation with $y_i = 1$, we have
 $$P(y_i = 1) = p = h(w^Tx_i)$$
 since $y_i = 1$, so $h(w^Tx_i) = h(y_iw^Tx_i)$. For an observation with $y_i = -1$, we have
