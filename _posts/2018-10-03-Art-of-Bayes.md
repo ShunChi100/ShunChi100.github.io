@@ -37,7 +37,7 @@ The problem setup is the following:
 * We make an assumption on the distribution of the response variable.
 * We want to find the parameters $\theta$ that the set of observations are most likely to happen.
 
-In general cases, let $$f(Y\|\Theta)$$ be the probability distribution for the response variable. $\Theta$ is the distribution parameter that is a function of independent variables $x_i$ and parameters $W$. For example, for the linear regression case, $\Theta$ is the mean and given by $\Theta = W^TX$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the likelihood function is
+In general cases, let $$f(Y | \Theta)$$ be the probability distribution for the response variable. $\Theta$ is the distribution parameter that is a function of independent variables $x_i$ and parameters $W$. For example, for the linear regression case, $\Theta$ is the mean and given by $\Theta = W^TX$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the likelihood function is
 
 $$\mathcal{L}(D|\theta) = \prod_{i}f(y_i|\theta_i) = \prod_{i}f(y_i|w,x_i).$$
 
@@ -82,28 +82,42 @@ In logistic regression, the response variable $Y$ is binary and follows a binomi
 $$p = h(W^TX) = \frac{1}{1+e^{-W^TX}}$$
 
 Therefore, for an observation with $y_i = 1$, we have
+
 $$P(y_i = 1) = p = h(w^Tx_i)$$
+
 since $y_i = 1$, so $h(w^Tx_i) = h(y_iw^Tx_i)$. For an observation with $y_i = -1$, we have
+
 $$P(y_i = -1) = 1 - p = 1 - h(w^Tx_i) = 1- \frac{1}{1+e^{-w^Tx_i}} = \frac{1}{1+e^{w^Tx_i}} = h(-w^Tx_i)$$
+
 since $y_i = -1$, so $h(-w^Tx_i) = h(y_iw^Tx_i)$. So for each observation $y_i$, we can write the probability in a clean way
+
 $$P(y_i) = h(y_iw^Tx_i).$$
 
 
 Follow the general MLE objective function
+
 $$\mathrm{argmin}_{w} \left[  -\log(\mathcal{L}(D|w))\right] = \mathrm{argmin}_{w}\left[-\sum_{i}\log\left(P(y_i|w, x_i)\right)\right]$$
+
 $$= \mathrm{argmin}_{w}\left[-\sum_{i}\log\left(h(y_iw^Tx_i)\right)\right]$$
+
 $$= \mathrm{argmin}_{w}\left[-\sum_{i}\log\left(\frac{1}{1+e^{-y_iw^Tx_i}}\right)\right]$$
+
 $$= \mathrm{argmin}_{w}\left[\sum_{i}\log\left(1+e^{-y_iw^Tx_i}\right)\right]$$
 
 So the MLE becomes a problem to find $w$ that minimize the objective (loss) function
-$$\sum_{i}\log\left(1+e^{-z_i}\right)$$ where $z_i = y_iw^Tx_i$. ($x_i$ includes a dummy variable for intercept.)
+
+$$\sum_{i}\log\left(1+e^{-z_i}\right)$$
+
+where $z_i = y_iw^Tx_i$. ($x_i$ includes a dummy variable for intercept.)
 
 ### Maximum a posterior estimation
-Some introduction here.
-y_iw^Tx_i
+Maximum a posterior estimation is an estimate of an unknown quantity, that equals the mode of the posterior distribution, without worrying the full distribution of the posterior. The MAP can be used to obtain a point estimate of an unobserved quantity on the basis of empirical data. Here we show that how MAP can lead to the regularization in the regression models.
+
 #### MAP for regression
 Given a set of data $D$, what is the distribution of parameters $W$? We can use the Bayesian rule
+
 $$P(w|D) = \frac{P(D|w)P(w)}{P(D)}$$
+
 here $P(D)$ is independent from $w$, so only the numerator is important for determining $w$.
 
 The problem setup is the following:
@@ -114,47 +128,71 @@ The problem setup is the following:
 * We want to find the parameters $w$ that corresponds to the maximum of the posterior given the observed data.
 
 In the general case, let $f(Y|w, X)$ be the probability distribution for the response variable and $g(w)$ be the prior distribution of parameter $w$. Given a set of observations (a sample) $D$ with $n$ pairs of $[y_i, x_i]$, then the posterior is
-$$P(w|D) = \prod_{i}f(y_i|w, x_i)g(w).$$ The negative logarithm is
+
+$$P(w|D) = \prod_{i}f(y_i|w, x_i)g(w).$$
+
+The negative logarithm is
+
 $$-\log(P(w|D)) = -\log\left(\prod_{i}f(y_i|w, x_i)g(w)\right)$$
+
 $$\ \ \ \ \  \ \ \ \ \ \ \  = -\log\left(\prod_{i}f(y_i|w, x_i)\right) - \log\left(g(w)\right)$$
+
 $$ = -\sum_{i}\log\left(f(y_i|w, x_i)\right) - \log(g(w))$$
+
 The MAP problem becomes
+
 $$\mathrm{argmin}_{w} -\log(P(w|D))= \mathrm{argmin}_{w} \left[-\sum_{i}\log(f(y_i|w,x_i)) - \log(g(w))\right].$$
 
 #### MAP for linear regression with a Gaussian prior
 Suppose the prior of $w$ is a Gaussian distribution $N(0, \sigma_w)$. This indicates that $w$ are likely around zero and extremely large values in $w$ are very unlikely to happen.
 
 Similar to MLE for linear regression, we insert the probability density functions for the response variable and parameters prior in the MAP objective function
+
 $$\mathrm{argmin}_{w} -\log(P(w|D)) = \mathrm{argmin}_{w}\left[-\sum_{i}\log(N(\theta = w^T x_i, \sigma)) - \log(N(0, \sigma_w))\right]$$  
+
 $$ = \mathrm{argmin}_{w}\left[-\sum_{i}\log(\frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}}) - \log(\frac{1}{\sqrt{2\pi \sigma_w^2}}e^{-\frac{w^2}{2\sigma_w^2}})\right]$$
+
 $$ = \mathrm{argmin}_{w}\left[-\sum_{i}\left[\log\left(\frac{1}{\sqrt{2\pi \sigma^2}}\right)+\log\left(e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}}\right)\right]- \left[\log\left(\frac{1}{\sqrt{2\pi \sigma_w^2}}\right)+\log\left(e^{-\frac{w^2}{2\sigma_w^2}}\right)\right]\right]$$
+
 $$ = const. + \frac{1}{2\sigma^2}\mathrm{argmin}_{w}\left[\sum_{i}(y_i-w^Tx_i)^2 + \frac{\sigma^2}{\sigma_w^2}w^2 \right]$$
 
 So MAP for linear regression with a Gaussian prior becomes a problem to find $w$ that minimize the sum of squared errors with a $L_2$ regularization
+
 $$\min\sum_{i}(y_i-w^Tx_i)^2 + \lambda w^2$$
+
 where $\lambda = \frac{\sigma^2}{\sigma_w^2}$. Thus the origin of object (loss) function for linear regression with $L_2$ regularization is MAP estimation of $w$ with a Gaussian prior.
 
 The question is how to choose the hyperparameter $\lambda$. Typically, we choose the $\lambda$ using cross-validation. In this sense, the hyperparameter is detemined by data.   
 
 #### MAP for robust regression with a Laplace prior
 We still have the model
+
 $$Y = WX + \xi,$$
+
 where the intercept is taken into account by including as an dummy variable in $X$. Here the noise $\xi$ is from a Laplace distribution [3] instead of a Gaussian distribution. Laplace distribution is a _heavy tail distribution_, so extreme values away from the mean are more likely than Gaussian distribution. Outliers can be taken care more appropriately in this distribution.
 
 With these assumption, $Y$ is given by
+
 $$Y \sim \mathrm{Laplace}(\theta = WX, b) = \frac{1}{2b}e^{-\frac{|Y-WX|}{b}},$$
+
 where $\theta$ is the mean and $b$ is the diversity for the noise term $\xi$.
 
 We also assume the parameter prior is a Laplace distribution
+
 $$g(w) = \mathrm{Laplace}(0, b_w) = \frac{1}{2b_w}e^{-\frac{|w|}{b_w}}$$
 
 Then the MAP objective function
+
 $$\mathrm{argmin}_{w} -\log(P(w|D)) = \mathrm{argmin}_{w}\left[-\sum_{i}\log(\mathrm{Laplace}(w^Tx_i, b)) - \log(\mathrm{Laplace}(0, b_w))\right]$$  
+
 $$ = \mathrm{argmin}_{w}\left[-\sum_{i}\log( \frac{1}{2b}e^{-\frac{|y_i-w^Tx_i|}{b}}) - \log(\frac{1}{2b_w}e^{-\frac{|w|}{b_w}})\right]$$
+
 $$ = const. + \frac{1}{b}\mathrm{argmin}_{w}\left[\sum_{i}|y_i-w^Tx_i| + \frac{b}{b_w}|w| \right]$$
 
 So MAP for robust regression with a Laplace prior becomes a problem to find $w$ that minimize the sum of absolute errors with a $L_1$ regularization
+
 $$\sum_{i}|y_i-w^Tx_i| + \lambda |w|$$
+
 where $\lambda = \frac{b}{b_w}$.
 
 [1]: [Maximum Likelihood](http://mathworld.wolfram.com/MaximumLikelihood.html)
