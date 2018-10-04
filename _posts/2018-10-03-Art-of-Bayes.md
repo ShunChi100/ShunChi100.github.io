@@ -9,8 +9,8 @@ Machine learning and statistics are two close subjects. Here in this post, I try
 ### Maximum Likelihood Estimation
 Maximum likelihood estimation (MLE) is the procedure of finding the values of $\Theta$ for a given data set which make the likelihood function a maximum [1]. Here the likelihood function is simply the probability that the event leading to the given data happens. Taking coin flipping as an example, we have observed three heads and two tails in five trails of the same coin. The number of heads in a given number of trails forms a binomial distribution with probability $p$. Here $p$ is the probability of head in a toss. We are not sure if the coin is fair or not. However, we want to estimate the most likely $p$ for this coin based on our observations. MLE can help here. The procedure is the following:
 
-* Calculate the likelihood as a function distribution parameter $\Theta$. Here $\Theta$ is $p$ in the binomial distribution case
-$$\mathcal{L}(p) = (_{5}^{3})p^3(1-p)^2 = 10p^3(1-p)^2$$
+* Calculate the likelihood as a function distribution parameter $latex \Theta$. Here $\Theta$ is $p$ in the binomial distribution case
+$$latex \mathcal{L}(p) = (_{5}^{3})p^3(1-p)^2 = 10p^3(1-p)^2$$
 
 * Take the negative logarithm of the likelihood function
 $$\displaystyle{\mathrm{argmin}_{p}}-\log(\mathcal{L}(p)).$$
