@@ -1,5 +1,10 @@
-
-# Demo of Robust PCA
+---
+layout: post
+mathjax: true
+comments: true
+title: Robust Principal Component Analysis
+Category: Data Science
+---
 
 The classical _Principal Component Analysis_ (PCA) is widely used for high-dimensional analysis and dimensionality reduction. Mathematically, if all the data points are stacked as column vectors of a (n, m)matrix $M$, PCA tries to decompose $M$ as
 
