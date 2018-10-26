@@ -39,7 +39,8 @@ import numpy as np
 import pandas as pd
 from imageio import imread
 import matplotlib.pylab as plt
-from RobustPCA.rpca import RobustPCA  # install RobustPCA according to Readme.md
+# RobustPCA is in this repo: https://github.com/ShunChi100/RobustPCA
+from RobustPCA.rpca import RobustPCA
 from RobustPCA.spcp import StablePCP
 ```
 
